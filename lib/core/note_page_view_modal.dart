@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'modal_view.dart';
+
+import 'note_model.dart';
 
 class NotePageViewModel extends ChangeNotifier {
   bool _isOpened = false;
