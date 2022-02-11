@@ -38,7 +38,7 @@ class MyHomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: AppColor.instance.scaffoldBackgroundColor,
-      appBar: buildAppBar(),
+      appBar: buildAppBar(context, ref),
       body: buildBody(ref),
       floatingActionButton: buildConsumer(),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
@@ -48,8 +48,18 @@ class MyHomePage extends ConsumerWidget {
     );
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context, WidgetRef ref) {
     return AppBar(
+      automaticallyImplyLeading: false,
+      leading: ref.read(pageStatusProvider).pageStatus
+          ? IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new),
+              onPressed: () {
+                ref.watch(pageStatusProvider).changePageStatus();
+                Navigator.of(context).pop();
+              },
+            )
+          : null,
       backgroundColor: AppColor.instance.appBarColor,
       title: Text(Constant.instance.kTitle),
     );
