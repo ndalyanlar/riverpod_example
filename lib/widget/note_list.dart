@@ -11,36 +11,52 @@ class NoteList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    return buildListViewB();
+  }
+
+  ListView buildListViewB() {
     return ListView.builder(
       itemCount: list.notes.length,
       itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: null,
-            child: Container(
-              height: 45,
-              decoration: BoxDecoration(
-                color: AppColor.instance.noteBackgroundColor,
-                borderRadius: BorderRadiusDirectional.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(
-                  child: Text(
-                    list.notes[index].title,
-                    maxLines: 1,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge!
-                        .copyWith(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
+        return buildPadding(index, context);
       },
+    );
+  }
+
+  Padding buildPadding(int index, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: buildInkwell(index, context),
+    );
+  }
+
+  InkWell buildInkwell(int index, BuildContext context) {
+    return InkWell(
+      onTap: null,
+      child: Container(
+        height: 45,
+        decoration: BoxDecoration(
+          color: AppColor.instance.noteBackgroundColor,
+          borderRadius: BorderRadiusDirectional.circular(12),
+        ),
+        child: buildNoteTitle(index, context),
+      ),
+    );
+  }
+
+  Padding buildNoteTitle(int index, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: Text(
+          list.notes[index].title,
+          maxLines: 1,
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(color: Colors.white),
+        ),
+      ),
     );
   }
 }
